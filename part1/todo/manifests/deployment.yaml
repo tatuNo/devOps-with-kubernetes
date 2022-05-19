@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: todo
-          image: tatuno/todo
+          image: tatuno/todo:v0.3
