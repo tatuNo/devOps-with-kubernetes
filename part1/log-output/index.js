@@ -3,9 +3,9 @@ const app = express();
 const { v4: uuidv4 } = require('uuid');
 
 const id = uuidv4();
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 
-app.get('/status', (_req, res) => {
+app.get('/', (_req, res) => {
   const date = new Date();
   res.send(`${date}: ${id}`)  
 });
