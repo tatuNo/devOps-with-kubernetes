@@ -12,6 +12,17 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: shared-file
+          emptyDir: {}
       containers:
-        - name: log-output
-          image: tatuno/log-output:v0.3
+        - name: log-writer
+          image: tatuno/log-writer
+          volumeMounts:
+          - name: shared-file
+            mountPath: /usr/src/app/files
+        - name: log-reader
+          image: tatuno/log-reader
+          volumeMounts:
+          - name: shared-file
+            mountPath: /usr/src/app/files
