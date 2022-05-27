@@ -4,18 +4,21 @@ const app = express();
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 
-const directory = path.join('/', 'usr', 'src', 'app', 'files');
-const filePath = path.join(directory, 'timestamp.txt');
+const dirTimestamp = path.join('/', 'usr', 'src', 'app', 'files');
+const dirPingpongs = path.join('/', 'usr', 'src', 'app', 'pongs');
+const timestampPath = path.join(dirTimestamp, 'timestamp.txt');
+const pingpongsPath = path.join(dirPingpongs, 'pingpong.txt');
 
 const id = uuidv4();
 const PORT = 3001;
 
 app.get('/', (_req, res) => {
   try {
-    const data = fs.readFileSync(filePath, 'utf8');
-    res.send(`${data}: ${id}`);
+    const timestamp = fs.readFileSync(timestampPath, 'utf8');
+    const pingpongs = fs.readFileSync(pingpongsPath, 'utf8');
+    res.send(`<p> ${timestamp}: ${id} </p> <p> Ping / Pongs: ${pingpongs} </p>`);
   } catch (error) {
-    res.status(404).send({error: error});
+    res.status(404).send({ error: error.message });
   }
 });
 

@@ -1,9 +1,11 @@
-FROM node:16-alpine
+FROM node:alpine
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY package* ./
 
-RUN npm install
+RUN npm ci
+
+COPY . .
 
 CMD ["npm", "start"]
