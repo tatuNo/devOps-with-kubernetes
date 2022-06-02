@@ -1,22 +1,32 @@
-import { useState } from 'react';
-
-const todos = [
-  'TODO1', 
-  'TODO2',
-  'TODO3'
-];
+import { useState, useEffect } from 'react';
+import axios from './util/apiClient';
 
 const App = () => {
-  const [todo, setTodo] = useState('');
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('handle submit');
+  const [todos, setTodos] = useState([]);
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+    getTodos();
+  }, [])
+
+  const getTodos = async () => {
+    const { data } = await axios.get('/todos');
+    setTodos(data);
   }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { data } = await axios.post('/todos', { text });
+    
+    setTodos(todos.concat(data));
+    setText('');
+  }
+
   return(
     <div>
-      <img src='http://localhost:8081/api' alt="" />
+      <img src='http://localhost:8081/api/dailyimage.jpg' alt="" />
       <form onSubmit={handleSubmit}>
-        <input type="text" maxLength="140" value={todo} onChange={(e) => setTodo(e.target.value)}/>
+        <input type="text" maxLength="140" value={text} onChange={(e) => setText(e.target.value)}/>
         <input type="submit" value="Create TODO" />
       </form>
       <ul>
