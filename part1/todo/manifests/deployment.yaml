@@ -22,4 +22,4 @@ spec:
           - name: daily-image
             mountPath: /usr/src/app/resources
         - name: todo-front
-          image: tatuno/todo-front:v0.1
+          image: tatuno/todo-front:v0.2
