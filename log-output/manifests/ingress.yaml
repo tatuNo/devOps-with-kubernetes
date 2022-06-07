@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dwk-material-ingress
+  namespace: log-output
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares: default-pingpong-stripprefix@kubernetescrd
 spec:
