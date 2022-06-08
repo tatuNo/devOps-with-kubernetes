@@ -26,7 +26,10 @@ spec:
           - name: shared-file
             mountPath: /usr/src/app/files
         - name: log-reader
-          image: tatuno/log-reader:v0.3
+          image: tatuno/log-reader:v0.4
+          envFrom:
+            - configMapRef:
+                name: message-config
           volumeMounts:
           - name: shared-file
             mountPath: /usr/src/app/files

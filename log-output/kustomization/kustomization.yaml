@@ -1,0 +1,7 @@
+configMapGenerator:
+- name: message-config
+  envs:
+  - .env
+  namespace: log-output
+generatorOptions:
+  disableNameSuffixHash: true

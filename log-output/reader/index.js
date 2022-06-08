@@ -17,7 +17,7 @@ app.get('/', async (_req, res) => {
   try {
     const timestamp = fs.readFileSync(timestampPath, 'utf8');
     const response = await axios.get('http://ping-pong-svc:2346/count');
-    res.send(`<p> ${timestamp}: ${id} </p> <p> Ping / Pongs: ${response.data} </p>`);
+    res.send(`<p> ${process.env.MESSAGE} </p> <p> ${timestamp}: ${id} </p> <p> Ping / Pongs: ${response.data} </p>`);
   } catch (error) {
     res.status(404).send({ error: error.message });
   }
