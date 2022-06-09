@@ -1,49 +1,27 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-const fs = require('fs');
+const express = require('express')
+const app = express()
 
-const directory = path.join('/', 'usr', 'src', 'app', 'pongs');
-const filePath = path.join(directory, 'pingpong.txt');
+const { connectToDatabase } = require('./util/db')
+const { PORT } = require('./util/config')
+const { Pong } = require('./models')
 
-const PORT = 3002;
-let pongs = 0;
-
-const fileExists = () => {
-  return fs.existsSync(filePath);
-};
-
-const increasePongs = () => {
-  pongs++;
-  try {
-    fs.writeFileSync(filePath, pongs.toString());
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const readPongs = () => {
-  try {
-    return Number(fs.readFileSync(filePath, 'utf-8'));
-  } catch (error) {
-    return 0;
-  }
-};
-
-app.get('/', (req, res) => {
-  
-  if(fileExists()) {
-    pongs = readPongs();
-  }
-
-  increasePongs();
-  res.send(`Pong: ${pongs}`);
-});
-
-app.get('/count', (req, res) => {
-  res.json(readPongs());
+app.get('/', async (req, res) => {
+  const [pong] = await Pong.findOrCreate({ where: {} })
+  pong.ping++
+  const savedPong = await pong.save()
+  res.send(`Pong: ${savedPong.ping}`)
 })
 
-app.listen(PORT, () => {
-  console.log(`Server started in port ${PORT}`);
-});
+app.get('/count', async (req, res) => {
+  const [pong] = await Pong.findOrCreate({ where: {} })
+  res.json(pong.ping)
+})
+
+const start = async () => {
+  await connectToDatabase()
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
+}
+
+start()

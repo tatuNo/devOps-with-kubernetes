@@ -19,7 +19,18 @@ spec:
             claimName: ping-pong-claim
       containers:
         - name: ping-pong
-          image: tatuno/ping-pong:v0.3
+          image: tatuno/ping-pong:v0.6
           volumeMounts:
           - name: shared-pong
             mountPath: /usr/src/app/pongs
+          env:
+            - name: POSTGRES_USER 
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: password
