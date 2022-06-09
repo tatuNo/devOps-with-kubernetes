@@ -1,25 +1,14 @@
-const todosRouter = require('express').Router();
+const todosRouter = require('express').Router()
+const { Todo } = require('../models')
 
-let todos = [
-  'TODO1',
-  'TODO2',
-  'TODO3',
-];
+todosRouter.get('/', async (req, res) => {
+  const todos = await Todo.findAll({})
+  res.json(todos)
+})
 
-todosRouter.get('/', (req, res) => {
-  res.json(todos);
-});
+todosRouter.post('/', async (req, res) => {
+  const todo = await Todo.create(req.body)
+  res.json(todo)
+})
 
-todosRouter.post('/', (req, res) => {
-  const body = req.body;
-  console.log(body);
-
-  const todo = body.text;
-  todos = todos.concat(todo);
-
-  console.log(todo);
-
-  res.json(todo);
-});
-
-module.exports = todosRouter;
+module.exports = todosRouter

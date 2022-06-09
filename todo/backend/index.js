@@ -1,18 +1,24 @@
-const express = require("express");
-const cors = require("cors");
+const express = require("express")
+const cors = require("cors")
 
-const todosRouter = require('./controllers/todos');
-const dailyImageRouter = require('./controllers/dailyimage');
+const { connectToDatabase } = require('./util/db')
+const { PORT } = require('./util/config')
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const todosRouter = require('./controllers/todos')
+const dailyImageRouter = require('./controllers/dailyimage')
 
-app.use('/todos', todosRouter);
-app.use('/dailyimage.jpg', dailyImageRouter);
+const app = express()
+app.use(cors())
+app.use(express.json())
 
-const PORT = process.env.PORT || 3001;
+app.use('/todos', todosRouter)
+app.use('/dailyimage.jpg', dailyImageRouter)
 
-app.listen(PORT, () => {
-  console.log(`Server started in port ${PORT}`);
-});
+const start = async () => {
+  await connectToDatabase()
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
+}
+
+start()

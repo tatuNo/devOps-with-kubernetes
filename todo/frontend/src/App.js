@@ -1,25 +1,25 @@
-import { useState, useEffect } from 'react';
-import axios from './util/apiClient';
+import { useState, useEffect } from 'react'
+import axios from './util/apiClient'
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
-  const [text, setText] = useState('');
+  const [todos, setTodos] = useState([])
+  const [text, setText] = useState('')
 
   useEffect(() => {
-    getTodos();
+    getTodos()
   }, [])
 
   const getTodos = async () => {
-    const { data } = await axios.get('/todos');
-    setTodos(data);
+    const { data } = await axios.get('/todos')
+    setTodos(data)
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const { data } = await axios.post('/todos', { text });
+    event.preventDefault()
+    const { data } = await axios.post('/todos', { text })
     
-    setTodos(todos.concat(data));
-    setText('');
+    setTodos(todos.concat(data))
+    setText('')
   }
 
   return(
@@ -31,13 +31,13 @@ const App = () => {
       </form>
       <ul>
         {todos.map(todo =>
-          <li key={todo}>
-            {todo}
+          <li key={todo.id}>
+            {todo.text}
           </li> 
         )}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
