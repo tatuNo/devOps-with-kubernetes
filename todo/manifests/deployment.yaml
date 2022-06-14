@@ -18,7 +18,7 @@ spec:
           emptyDir: {}
       containers:
         - name: todo-back
-          image: tatuno/todo-back:v0.4
+          image: tatuno/todo-back:v1.0
           volumeMounts:
           - name: daily-image
             mountPath: /usr/src/app/resources

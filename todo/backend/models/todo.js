@@ -11,6 +11,11 @@ Todo.init({
   },
   text: {
     type: DataTypes.STRING,
+    validate: {
+      len: {
+        args: [1, 140],
+      }
+    }
   }
 }, {
   sequelize,
