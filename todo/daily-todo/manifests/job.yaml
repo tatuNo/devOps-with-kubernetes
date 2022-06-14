@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-todo
+  namespace: todo
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: daily-todo
+            image: tatuno/daily-todo:v0.1
+            imagePullPolicy: IfNotPresent
+          restartPolicy: OnFailure
