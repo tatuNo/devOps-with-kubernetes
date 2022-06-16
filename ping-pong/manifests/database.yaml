@@ -38,6 +38,7 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/postgresql/data
+              subPath: postgres
           env:
             - name: POSTGRES_USER 
               valueFrom:
@@ -54,7 +55,6 @@ spec:
         name: data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: local-path
         resources:
           requests:
             storage: 100Mi
