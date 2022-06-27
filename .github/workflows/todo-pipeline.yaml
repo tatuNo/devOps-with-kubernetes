@@ -26,7 +26,7 @@ jobs:
       - name: Sops Binary Installer
         uses: mdgreenwald/mozilla-sops-action@v1.2.0
         id: install
-      
+
       - name: Decrypt database secrets
         - run: |-
             sops --decrypt ./todo/manifests/database-secrets.enc.yaml > ./todo/manifests/database-secrets.yaml
@@ -61,7 +61,7 @@ jobs:
           docker build \
             --tag "gcr.io/$PROJECT_ID/$DAILY_TODO:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
             -f ./todo/daily-todo/Dockerfile
-      
+
       - name: Publish images
         run: |-
           docker push "gcr.io/$PROJECT_ID/$FRONTEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
