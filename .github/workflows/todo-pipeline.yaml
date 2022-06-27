@@ -1,0 +1,83 @@
+name: Release application
+
+on:
+  push:
+    paths:
+      - 'todo/**'
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  FRONTEND: todo-front
+  BACKEND: todo-back
+  DAILY_TODO: daily-todo
+  SOPS_AGE_KEY_FILE: ${{ secrets.SOPS_AGE_KEY_FILE }}
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Decrypt, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Sops Binary Installer
+        uses: mdgreenwald/mozilla-sops-action@v1.2.0
+        id: install
+      
+      - name: Decrypt database secrets
+        - run: |-
+            sops --decrypt ./todo/manifests/database-secrets.enc.yaml > ./todo/manifests/database-secrets.yaml
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GKE_PROJECT }}
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          export_default_credentials: true
+
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+      - run: |-
+          gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+
+      - name: Build frontend image
+        run: |-
+          docker build \
+            --tag "gcr.io/$PROJECT_ID/$FRONTEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            -f ./todo/frontend/Dockerfile
+
+      - name: Build backend image
+        run: |-
+          docker build \
+            --tag "gcr.io/$PROJECT_ID/$BACKEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            -f ./todo/backend/Dockerfile
+
+      - name: Build daily-todo image
+        run: |-
+          docker build \
+            --tag "gcr.io/$PROJECT_ID/$DAILY_TODO:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            -f ./todo/daily-todo/Dockerfile
+      
+      - name: Publish images
+        run: |-
+          docker push "gcr.io/$PROJECT_ID/$FRONTEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          docker push "gcr.io/$PROJECT_ID/$BACKEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+          docker push "gcr.io/$PROJECT_ID/$DAILY_TODO:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Deploy
+        run: |-
+          cd ./todo/
+          kustomize edit set image FRONTEND_IMAGE=gcr.io/$PROJECT_ID/$FRONTEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image BACKEND_IMAGE=gcr.io/$PROJECT_ID/$BACKEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image DAILY_TODO_IMAGE=gcr.io/$PROJECT_ID/$DAILY_TODO:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize build . | kubectl apply -f -
+          kubectl rollout status deployment $FRONTEND
+          kubectl rollout status deployment $BACKEND
+          kubectl get services -o wide

@@ -18,7 +18,7 @@ spec:
           emptyDir: {}
       containers:
         - name: todo-back
-          image: tatuno/todo-back:v1.0
+          image: BACKEND_IMAGE
           volumeMounts:
           - name: daily-image
             mountPath: /usr/src/app/resources
@@ -34,4 +34,4 @@ spec:
                   name: database-credentials
                   key: password
         - name: todo-front
-          image: tatuno/todo-front:v1.7
+          image: FRONTEND_IMAGE

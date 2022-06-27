@@ -11,6 +11,6 @@ spec:
         spec:
           containers:
           - name: daily-todo
-            image: tatuno/daily-todo:v0.1
+            image: DAILY_TODO_IMAGE
             imagePullPolicy: IfNotPresent
           restartPolicy: OnFailure
