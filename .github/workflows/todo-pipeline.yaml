@@ -25,7 +25,7 @@ jobs:
 
       - name: Sops Binary Installer
         uses: mdgreenwald/mozilla-sops-action@v1.2.0
-        id: install
+
       - name: Decrypt database secrets
         - run: |-
             sops --decrypt ./todo/manifests/database-secrets.enc.yaml > ./todo/manifests/database-secrets.yaml
