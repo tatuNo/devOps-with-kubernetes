@@ -45,21 +45,21 @@ jobs:
 
       - name: Build frontend image
         run: |-
-          docker build \
+          cd ./todo/frontend && docker build \
             --tag "gcr.io/$PROJECT_ID/$FRONTEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
-            -f ./todo/frontend/Dockerfile .
+             .
 
       - name: Build backend image
         run: |-
-          docker build \
+          cd ./todo/backend && docker build \
             --tag "gcr.io/$PROJECT_ID/$BACKEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
-            -f ./todo/backend/Dockerfile .
+            .
 
       - name: Build daily-todo image
         run: |-
-          docker build \
+          cd ./todo/daily-todo && docker build \
             --tag "gcr.io/$PROJECT_ID/$DAILY_TODO:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
-            -f ./todo/daily-todo/Dockerfile .
+            .
 
       - name: Publish images
         run: |-
