@@ -2,12 +2,10 @@ FROM node:16 AS build-stage
 
 WORKDIR /usr/src/app
 
-COPY package* ./
+COPY . .
 
 RUN npm ci && \
   npm run build
-
-COPY . .
 
 FROM nginx:1.20-alpine
 
