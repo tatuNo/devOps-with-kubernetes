@@ -25,12 +25,10 @@ jobs:
 
       - name: Sops Binary Installer
         uses: mdgreenwald/mozilla-sops-action@v1.2.0
-        with:
-          version: "3.7.2"
 
       - name: Decrypt database secrets
-        - run: |-
-            sops --decrypt ./todo/manifests/database-secrets.enc.yaml > ./todo/manifests/database-secrets.yaml
+        run: |-
+          sops --decrypt ./todo/manifests/database-secrets.enc.yaml > ./todo/manifests/database-secrets.yaml
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
