@@ -24,7 +24,7 @@ const App = () => {
 
   return(
     <div>
-      <img src='http://localhost:8081/api/dailyimage.jpg' alt="" />
+      <img src={`/api/dailyimage.jpg`} alt="" />
       <form onSubmit={handleSubmit}>
         <input type="text" maxLength="140" value={text} onChange={(e) => setText(e.target.value)}/>
         <input type="submit" value="Create TODO" />

@@ -4,7 +4,7 @@ metadata:
   name: todo-back-svc
   namespace: todo
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: todo
   ports:

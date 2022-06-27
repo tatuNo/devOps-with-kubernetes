@@ -34,4 +34,4 @@ spec:
                   name: database-credentials
                   key: password
         - name: todo-front
-          image: tatuno/todo-front:v0.4
+          image: tatuno/todo-front:v1.7
