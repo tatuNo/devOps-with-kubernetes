@@ -4,6 +4,7 @@ resources:
   - manifests/deployment.yaml
   - manifests/database-secrets.yaml
   - manifests/ingress.yaml
+  - manifests/database.yaml
   - backend/manifests/service.yaml
   - frontend/manifests/service.yaml
   - daily-todo/manifests/job.yaml
