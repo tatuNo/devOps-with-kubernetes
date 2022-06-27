@@ -12,7 +12,7 @@ env:
   FRONTEND: todo-front
   BACKEND: todo-back
   DAILY_TODO: daily-todo
-  SOPS_AGE_KEY_FILE: ${{ secrets.SOPS_AGE_KEY_FILE }}
+  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
 jobs:
   setup-build-publish-deploy:
