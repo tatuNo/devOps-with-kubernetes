@@ -31,7 +31,7 @@ jobs:
           sops --decrypt ./todo/manifests/database-secrets.enc.yaml > ./todo/manifests/database-secrets.yaml
 
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GKE_PROJECT }}
           service_account_key: ${{ secrets.GKE_SA_KEY }}
