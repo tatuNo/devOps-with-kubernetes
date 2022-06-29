@@ -73,9 +73,12 @@ jobs:
       - name: Deploy
         run: |-
           cd ./todo/
+          kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+          kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+          kustomize edit set namespace ${GITHUB_REF#refs/heads/}
           kustomize edit set image FRONTEND_IMAGE=gcr.io/$PROJECT_ID/$FRONTEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize edit set image BACKEND_IMAGE=gcr.io/$PROJECT_ID/$BACKEND:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize edit set image DAILY_TODO_IMAGE=gcr.io/$PROJECT_ID/$DAILY_TODO:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
-          kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment todo-dep --namespace=todo
+          kubectl apply -k .
+          kubectl rollout status deployment todo-dep
           kubectl get services -o wide

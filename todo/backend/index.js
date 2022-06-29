@@ -14,8 +14,12 @@ app.use(cors())
 app.use(express.json())
 app.use(requestLogger)
 
-app.use('/todos', todosRouter)
-app.use('/dailyimage.jpg', dailyImageRouter)
+app.get('/', (req,res) => {
+  res.status(200).send()
+})
+
+app.use('/api/todos', todosRouter)
+app.use('/api/dailyimage.jpg', dailyImageRouter)
 
 app.use(errorHandler)
 

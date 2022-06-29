@@ -10,8 +10,8 @@ resources:
   - daily-todo/manifests/job.yaml
 images:
   - name: FRONTEND_IMAGE
-    newName: tatuno/todo-front:v1.7
+    newName: tatuno/todo-front:v1.8
   - name: BACKEND_IMAGE
-    newName: tatuno/todo-back:v1.0
+    newName: tatuno/todo-back:v1.3
   - name: DAILY_TODO_IMAGE
     newName: tatuno/daily-todo:v0.1

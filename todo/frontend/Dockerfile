@@ -9,7 +9,4 @@ RUN npm ci && \
 
 FROM nginx:1.20-alpine
 
-RUN rm /etc/nginx/conf.d/default.conf
-COPY --from=build-stage /usr/src/app/nginx.conf /etc/nginx/conf.d
-
 COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html

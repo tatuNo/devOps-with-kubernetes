@@ -3,21 +3,18 @@ kind: Ingress
 metadata:
   name: dwk-material-ingress
   namespace: todo
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - http:
       paths:
-      - path: /()(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: todo-front-svc
             port:
               number: 2345
-      - path: /api(/|$)(.*)
+      - path: /api
         pathType: Prefix
         backend:
           service:
