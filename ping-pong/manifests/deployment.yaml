@@ -16,6 +16,10 @@ spec:
       containers:
         - name: ping-pong
           image: tatuno/ping-pong:v0.8
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
           env:
             - name: POSTGRES_USER 
               valueFrom:

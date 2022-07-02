@@ -19,11 +19,19 @@ spec:
       containers:
         - name: log-writer
           image: tatuno/log-writer
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "250Mi"
           volumeMounts:
           - name: shared-file
             mountPath: /usr/src/app/files
         - name: log-reader
           image: tatuno/log-reader:v0.4
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "250Mi"
           envFrom:
             - configMapRef:
                 name: message-config
