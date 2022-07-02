@@ -14,3 +14,7 @@ In a small project DIY costs seems to be lower and easier to keep track off than
 ## Exercise 3.07
 
 Decided to go with PersistentVolumeClaims because the setup is fast and easy and I'm not in a need of all the complex features what Google Cloud SQL offers. Also feels like I could save a credit or two using PersistentVolumeClaims.
+
+## Exercise 3.10
+
+![](./todo/todo-logs.PNG)
