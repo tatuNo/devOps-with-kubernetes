@@ -19,6 +19,10 @@ spec:
       containers:
         - name: todo-back
           image: BACKEND_IMAGE
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
           volumeMounts:
           - name: daily-image
             mountPath: /usr/src/app/resources
@@ -35,3 +39,7 @@ spec:
                   key: password
         - name: todo-front
           image: FRONTEND_IMAGE
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
