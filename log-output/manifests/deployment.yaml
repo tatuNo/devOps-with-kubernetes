@@ -27,7 +27,7 @@ spec:
           - name: shared-file
             mountPath: /usr/src/app/files
         - name: log-reader
-          image: tatuno/log-reader:v0.4
+          image: tatuno/log-reader:v0.5
           resources:
             limits:
               cpu: "100m"
@@ -38,3 +38,9 @@ spec:
           volumeMounts:
           - name: shared-file
             mountPath: /usr/src/app/files
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+               path: /healthz
+               port: 3001

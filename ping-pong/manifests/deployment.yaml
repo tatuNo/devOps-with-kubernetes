@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: tatuno/ping-pong:v0.8
+          image: tatuno/ping-pong:v1.3
           resources:
             limits:
               cpu: "100m"
@@ -31,3 +31,9 @@ spec:
                 secretKeyRef:
                   name: database-credentials
                   key: password
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            httpGet:
+               path: /healthz
+               port: 3002

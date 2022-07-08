@@ -1,7 +1,14 @@
 const Pong = require('./pong')
 
-Pong.sync()
+const syncTables = async () => {
+  try {
+    await Pong.sync()
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 module.exports = {
-  Pong
+  syncTables,
+  Pong,
 }
