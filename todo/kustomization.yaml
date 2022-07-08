@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - manifests/deployment.yaml
-  - manifests/database-secrets.yaml
+  # - manifests/database-secrets.yaml
   - manifests/ingress.yaml
   - manifests/database.yaml
   - backend/manifests/service.yaml
@@ -12,6 +12,6 @@ images:
   - name: FRONTEND_IMAGE
     newName: tatuno/todo-front:v1.8
   - name: BACKEND_IMAGE
-    newName: tatuno/todo-back:v1.3
+    newName: tatuno/todo-back:v1.4
   - name: DAILY_TODO_IMAGE
     newName: tatuno/daily-todo:v0.1

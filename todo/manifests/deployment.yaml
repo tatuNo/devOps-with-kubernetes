@@ -23,6 +23,18 @@ spec:
             limits:
               cpu: "100m"
               memory: "200Mi"
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            httpGet:
+               path: /healthz
+               port: 3001
+          livenessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            httpGet:
+               path: /healthz
+               port: 3001
           volumeMounts:
           - name: daily-image
             mountPath: /usr/src/app/resources
