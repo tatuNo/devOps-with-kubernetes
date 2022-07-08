@@ -18,3 +18,7 @@ Decided to go with PersistentVolumeClaims because the setup is fast and easy and
 ## Exercise 3.10
 
 ![](./todo/todo-logs.PNG)
+
+## Exercise 4.03
+
+`scalar(count(kube_pod_info{created_by_kind="StatefulSet", namespace="prometheus"}))`
