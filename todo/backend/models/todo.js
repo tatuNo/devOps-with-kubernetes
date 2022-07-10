@@ -16,6 +16,10 @@ Todo.init({
         args: [1, 140],
       }
     }
+  },
+  done: {
+    type: DataTypes.BOOLEAN,
+    default: false
   }
 }, {
   sequelize,
