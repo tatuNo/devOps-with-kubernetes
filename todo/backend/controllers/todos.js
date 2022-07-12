@@ -1,5 +1,6 @@
 const todosRouter = require('express').Router()
 const { Todo } = require('../models')
+const { sendMessage } = require('../util/nats')
 
 todosRouter.get('/', async (req, res) => {
   const todos = await Todo.findAll({})
@@ -8,6 +9,7 @@ todosRouter.get('/', async (req, res) => {
 
 todosRouter.post('/', async (req, res) => {
   const todo = await Todo.create(req.body)
+  sendMessage(todo)
   res.json(todo)
 })
 
@@ -17,6 +19,7 @@ todosRouter.put('/:id', async (req, res) => {
 
   const updatedTodo = await todo.save()
 
+  sendMessage(updatedTodo)
   res.json(updatedTodo)
 })
 

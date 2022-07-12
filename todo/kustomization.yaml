@@ -9,10 +9,13 @@ resources:
   - backend/manifests/service.yaml
   - frontend/manifests/service.yaml
   - daily-todo/manifests/job.yaml
+  - broadcaster/manifests/deployment.yaml
 images:
   - name: FRONTEND_IMAGE
     newName: tatuno/todo-front:v2.3
   - name: BACKEND_IMAGE
-    newName: tatuno/todo-back:v1.5
+    newName: tatuno/todo-back:v2.2
   - name: DAILY_TODO_IMAGE
     newName: tatuno/daily-todo:v0.3
+  - name: BROADCASTER_IMAGE
+    newName: tatuno/todo-broadcaster:v2.5

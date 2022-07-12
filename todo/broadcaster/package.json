@@ -1,0 +1,16 @@
+{
+  "name": "broadcaster",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.8.1",
+    "nats": "^2.7.1"
+  },
+  "type": "module"
+}

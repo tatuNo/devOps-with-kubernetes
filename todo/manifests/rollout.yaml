@@ -56,6 +56,8 @@ spec:
                 secretKeyRef:
                   name: database-credentials
                   key: password
+            - name: NATS_URL
+              value: nats://my-nats:4222
         - name: todo-front
           image: FRONTEND_IMAGE
           resources:
