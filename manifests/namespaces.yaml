@@ -1,0 +1,34 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: log-output
+  labels:
+    name: log-output
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: todo
+  labels:
+    name: todo
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: nats
+  labels:
+    name: nats
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: argo-rollout
+  labels:
+    name: argo-rollout
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: prometheus
+  labels:
+    name: prometheus
