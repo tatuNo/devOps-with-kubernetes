@@ -29,16 +29,6 @@ metadata:
 kind: Namespace
 apiVersion: v1
 metadata:
-<<<<<<< HEAD
-=======
-  name: argo-rollout
-  labels:
-    name: argo-rollout
----
-kind: Namespace
-apiVersion: v1
-metadata:
->>>>>>> 98f8620e3f3bda984b6c8696363632d5cb7f12a9
   name: prometheus
   labels:
     name: prometheus
