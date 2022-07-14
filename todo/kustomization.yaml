@@ -13,13 +13,13 @@ resources:
 images:
 - name: BACKEND_IMAGE
   newName: tatuno/todo-back
-  newTag: 73014cb6fc08cc8796c78b6a4b1138519f40582a
+  newTag: 2408e3f7b0e83d5f2ae0e02e169c0763409ca873
 - name: BROADCASTER_IMAGE
   newName: tatuno/todo-broadcaster
-  newTag: 73014cb6fc08cc8796c78b6a4b1138519f40582a
+  newTag: 2408e3f7b0e83d5f2ae0e02e169c0763409ca873
 - name: DAILY_TODO_IMAGE
   newName: tatuno/daily-todo
-  newTag: 73014cb6fc08cc8796c78b6a4b1138519f40582a
+  newTag: 2408e3f7b0e83d5f2ae0e02e169c0763409ca873
 - name: FRONTEND_IMAGE
   newName: tatuno/todo-front
-  newTag: 73014cb6fc08cc8796c78b6a4b1138519f40582a
+  newTag: 2408e3f7b0e83d5f2ae0e02e169c0763409ca873
