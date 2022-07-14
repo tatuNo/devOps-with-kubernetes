@@ -1,21 +1,25 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources:
-  - manifests/rollout.yaml
   # - manifests/database-secrets.yaml
-  - manifests/ingress.yaml
-  - manifests/database.yaml
-  - manifests/analysistemplate.yaml
-  - backend/manifests/service.yaml
-  - frontend/manifests/service.yaml
-  - daily-todo/manifests/job.yaml
-  - broadcaster/manifests/deployment.yaml
+resources:
+- manifests/rollout.yaml
+- manifests/ingress.yaml
+- manifests/database.yaml
+- manifests/analysistemplate.yaml
+- backend/manifests/service.yaml
+- frontend/manifests/service.yaml
+- daily-todo/manifests/job.yaml
+- broadcaster/manifests/deployment.yaml
 images:
-  - name: FRONTEND_IMAGE
-    newName: tatuno/todo-front:v2.3
-  - name: BACKEND_IMAGE
-    newName: tatuno/todo-back:v2.2
-  - name: DAILY_TODO_IMAGE
-    newName: tatuno/daily-todo:v0.3
-  - name: BROADCASTER_IMAGE
-    newName: tatuno/todo-broadcaster:v2.5
+- name: BACKEND_IMAGE
+  newName: tatuno/todo-back
+  newTag: 73014cb6fc08cc8796c78b6a4b1138519f40582a
+- name: BROADCASTER_IMAGE
+  newName: tatuno/todo-broadcaster
+  newTag: 73014cb6fc08cc8796c78b6a4b1138519f40582a
+- name: DAILY_TODO_IMAGE
+  newName: tatuno/daily-todo
+  newTag: 73014cb6fc08cc8796c78b6a4b1138519f40582a
+- name: FRONTEND_IMAGE
+  newName: tatuno/todo-front
+  newTag: 73014cb6fc08cc8796c78b6a4b1138519f40582a
