@@ -7,7 +7,7 @@ spec:
   metrics:
   - name: todo-cpu-usage
     initialDelay: 10m
-    successCondition: result < 0.25
+    successCondition: result < 0.65
     provider:
       prometheus:
         address: http://prometheus-release-kube-pr-prometheus.prometheus.svc.cluster.local:9090
