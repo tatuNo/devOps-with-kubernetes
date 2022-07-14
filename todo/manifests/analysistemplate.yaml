@@ -7,10 +7,10 @@ spec:
   metrics:
   - name: todo-cpu-usage
     initialDelay: 10m
-    successCondition: result < 0.65
+    successCondition: result < 0.5
     provider:
       prometheus:
-        address: http://prometheus-release-kube-pr-prometheus.prometheus.svc.cluster.local:9090
+        address: http://kube-prometheus-stack-1657-prometheus.prometheus.svc.cluster.local:9090
         query: |
           scalar(
             sum(rate(container_cpu_usage_seconds_total{namespace="todo"}[10m]))
