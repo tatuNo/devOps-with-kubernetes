@@ -1,0 +1,76 @@
+name: Release todo app
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'todo/**'
+      - '.github/workflows/todo-gitops-pipeline.yaml'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build & Push backend
+      uses: docker/build-push-action@v2
+      with:
+        context: todo/backend
+        push: true
+        tags: tatuno/todo-back:${{ github.sha }}
+
+    - name: Build & Push frontend
+      uses: docker/build-push-action@v2
+      with:
+        context: todo/frontend
+        push: true
+        tags: tatuno/todo-front:${{ github.sha }}
+
+    - name: Build & Push broadcaster
+      uses: docker/build-push-action@v2
+      with:
+        context: todo/broadcaster
+        push: true
+        tags: tatuno/todo-broadcaster:${{ github.sha }}
+    
+    - name: Build & Push daily-todo
+      uses: docker/build-push-action@v2
+      with:
+        context: todo/daily-todo
+        push: true
+        tags: tatuno/daily-todo:${{ github.sha }}    
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Kustomize
+      uses: imranismail/setup-kustomize@v1
+
+    - name: Update yamls
+      working-directory: todo
+      run: |-
+        kustomize edit set image FRONTEND_IMAGE=tatuno/todo-front:${{ github.sha }}
+        kustomize edit set image BACKEND_IMAGE=tatuno/todo-back:${{ github.sha }}
+        kustomize edit set image DAILY_TODO_IMAGE=tatuno/daily-todo:${{ github.sha }} 
+        kustomize edit set image BROADCASTER_IMAGE=tatuno/todo-broadcaster:${{ github.sha }}
+
+    - uses: EndBug/add-and-commit@v7
+      with:
+        add: 'todo/kustomization.yaml'
+        message: New version release for todo-app ${{ github.sha }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
