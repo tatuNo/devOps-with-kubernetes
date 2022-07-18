@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummysite-controller-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dummysite-controller
+  template:
+    metadata:
+      labels:
+        app: dummysite-controller
+    spec:
+      nodeSelector: 
+        kubernetes.io/hostname: k3d-k3s-default-agent-0
+      serviceAccountName: dummysite-controller-account
+      volumes:
+        - name: shared-file
+          hostPath:
+            path: /tmp/kube
+            type: DirectoryOrCreate
+      containers:
+        - name: dummysite-controller
+          image: tatuno/dummysite:v4.0
+          volumeMounts:
+          - name: shared-file
+            mountPath: /usr/src/app/files

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{{ name }}}-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{{ name }}}
+  template:
+    metadata:
+      labels:
+        app: {{{ name }}}
+    spec:
+      nodeSelector: 
+        kubernetes.io/hostname: k3d-k3s-default-agent-0
+      volumes:
+        - name: shared-file
+          hostPath:
+            path: /tmp/kube
+            type: Directory
+      containers:
+        - name: {{{ name }}}-container
+          image: nginx:alpine
+          volumeMounts:
+          - name: shared-file
+            mountPath: /usr/share/nginx/html

@@ -1,0 +1,6 @@
+apiVersion: stable.tatuno/v1
+kind: DummySite
+metadata:
+  name: ds-test
+spec:
+  website_url: "https://www.example.com/"

@@ -1,0 +1,20 @@
+{
+  "name": "controller",
+  "version": "1.0.0",
+  "description": "",
+  "exports": "./index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.17.0",
+    "json-stream": "^1.0.0",
+    "mustache": "^4.2.0",
+    "request": "^2.88.2",
+    "website-scraper": "^5.2.0",
+    "website-scraper-existing-directory": "^1.0.0"
+  },
+  "type": "module"
+}
