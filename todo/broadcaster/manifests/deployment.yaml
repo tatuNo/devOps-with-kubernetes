@@ -10,6 +10,8 @@ spec:
       app: todo-broadcaster
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: todo-broadcaster
     spec:

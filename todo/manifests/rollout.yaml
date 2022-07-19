@@ -17,6 +17,8 @@ spec:
           - templateName: todo-cpu-usage
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: todo
     spec:
