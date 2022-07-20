@@ -29,3 +29,8 @@ Decided to go with PersistentVolumeClaims because the setup is fast and easy and
 
 ## Exercise 4.07
 https://github.com/tatuNo/kube-cluster-todo
+
+## Exercise 5.03
+
+Demo app traffic split visualized.
+![](./images/trafficsplit.PNG)
