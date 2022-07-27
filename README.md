@@ -34,3 +34,14 @@ https://github.com/tatuNo/kube-cluster-todo
 
 Demo app traffic split visualized.
 ![](./images/trafficsplit.PNG)
+
+## Exercise 5.04: Rancher vs OpenShift
+
+For this exercise i chose Rancher over OpenShift.
+
+- Installation seems to be easier with Rancher as it gets installed in hours where OpenShift could take days.
+- Rancher natively offers Multi-Cluster Management from a single management instance, with OpenShift you need to purchase additional software (RHACM).
+- There is no vendor lock with Rancher, switching to vanilla Kubernetes is possible.
+- Rancher seems to be more easier & reliable to upgrade.
+
+Picking one over another without context is quite hard and choice of platform is determined based on uses.
