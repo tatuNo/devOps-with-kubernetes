@@ -1,0 +1,32 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ping-pong-knative
+  namespace: log-output
+spec:
+  template:
+    metadata:
+      name: ping-pong-knative-dwk
+    spec:
+      containers:
+        - image: tatuno/ping-pong:v1.3
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
+          env:
+            - name: POSTGRES_USER 
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: password
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            httpGet:
+               path: /healthz
