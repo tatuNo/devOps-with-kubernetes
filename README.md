@@ -45,3 +45,42 @@ For this exercise i chose Rancher over OpenShift.
 - Rancher seems to be more easier & reliable to upgrade.
 
 Picking one over another without context is quite hard and choice of platform is determined based on uses.
+
+## Exercise 5.06
+
+Directly used (green)
+ - Kubernetes.
+ - PostgreSQL for todo & ping-pong apps database management.
+ - Nats to send todo app status messages to Discord.
+ - Helm to install apps to cluster like Prometheus & Nginx.
+ - Argo for rolling updates in part 4.
+ - Flux to GitOpsify cluster in part 4.
+ - Github Actions to create deployment pipelines.
+ - K3s as a Kubernetes distribution for the course.
+ - Knative for making ping-pong app serverless.
+ - Contour as a Knative ingress class.
+ - Traefik as it is k3s default ingress controller.
+ - Nginx to serve todo app frontend static files. Also tested it as a ingress controller in part 3.
+ - Linkerd to test Service Mesh in part 5.
+ - Google Kubernetes Engine as a managed Kubernetes service for part 3.
+ - Google Persistent Disk for persisting data in GKE.
+ - Google Container Registery to store docker images in part 3.
+ - Prometheus to monitor cluster in part 2 & 4.
+ - Grafana loki to view app logs in part 2.
+
+Outside of the course
+ - MariaDB
+ - MongoDB
+ - MySQL
+ - Redis
+ - Gitlab
+ - Jenkins
+ - Heroku
+
+Finding indirect use was quite challenging but found out that I used indirectly (yellow)
+ - CoreDNS as cluster DNS provider in K3s.
+ - Containerd as a container runtime in K3s.
+ - Etcd via k3s -> flannel. To "store the network configuration, the allocated subnets, and any auxiliary data (such as the host's public IP)."
+ - Might be that I used CNI too because of "by default, K3s will run with flannel as the CNI" but I have no idea about the concept.
+
+![](./images/landscape.png)
